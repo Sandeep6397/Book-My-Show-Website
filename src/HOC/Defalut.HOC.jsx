@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 
+
 //Layout
 import DefaultLayout from '../layouts/Default.layout';
 
