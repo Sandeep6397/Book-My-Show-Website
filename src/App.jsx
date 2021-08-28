@@ -2,12 +2,18 @@
 import DefalutHOC from "./HOC/Defalut.HOC";
 
 //Component
-import Temp from "./components/temp";
+import HomePage from "./Pages/home.pages.";
+
+// import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 
 function App() {
   return (
     <>
-      <DefalutHOC path="/"  exact component={Temp}/>
+      <DefalutHOC path="/"  exact component={HomePage}/>
     </>
   );
 }

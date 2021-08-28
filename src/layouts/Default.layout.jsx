@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar/navbar.component";
 //corousael
 import Herocarousel from "../components/Herocarousel/herocaousel.components";
 
+
 const DefaultLayout = (props) =>{
     return (
         <>
