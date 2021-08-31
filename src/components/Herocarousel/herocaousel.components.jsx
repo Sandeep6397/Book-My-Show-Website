@@ -21,7 +21,7 @@ const Herocarousel = () =>{
     }
 
     const settings = {
-        dots: true,
+    
         arrows: true,
         centerMode: true,
         centerPadding:"0px",

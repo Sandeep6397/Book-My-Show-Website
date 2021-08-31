@@ -5,7 +5,7 @@ import React from "react";
 
 import EntertainmentCardSlider from "../components/Entertainment/entertainment.component";
 import PosterSlider from "../components/PosterSlider/posterslider.componets";
-import Premier from "../components/Premier/premier.component";
+
 
 import TempPosters from '../Config/Tempimages.config'
 

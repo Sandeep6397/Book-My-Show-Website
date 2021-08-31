@@ -15,3 +15,10 @@
     z-index: 1;
 
 }
+
+*{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
