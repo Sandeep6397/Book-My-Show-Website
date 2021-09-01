@@ -53,7 +53,7 @@ const PlayPage = () => {
                     </div> 
                    </div>
                    
-                    <div className="sm:hidden md:hiddenlg:w-3/12">
+                    <div className="lg:w-3/12">
                         <h2 className="text-2xl font-bold mb-4">Filters</h2>
                         <div>
                             <PlaysFilter title="Date" tags={["Today","Tommarrow","Today","Tommarrow"]}/>

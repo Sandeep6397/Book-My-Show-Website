@@ -2,7 +2,7 @@ const Settings = {
     infinite: true,
     autoplay: false,
     slidesToShow: 5,
-    slidesToScroll: 4,
+    slidesToScroll: 5,
     initialSlide:0,
     responsive: [{
         breakpoint: 1024,

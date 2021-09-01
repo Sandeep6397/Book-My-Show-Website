@@ -1,18 +1,57 @@
-import React from 'react'
+import React,{useContext, useState, useEffect} from 'react'
 //component
 import MovieHero from '../components/MovieHero/moviehero.component';
+import axios from 'axios';
+//slider
+import Slider from 'react-slick'; 
 
+import { useParams } from 'react-router';
 import PosterSlider from "../components/PosterSlider/posterslider.componets";
 import TempPosters from '../Config/Tempimages.config'
 import CastCrew from '../components/Cast/cast.component';
 import {FaCcVisa} from 'react-icons/fa';
 import {SiApplepay} from 'react-icons/si';
 
+ //context
+import { MovieContext } from '../Context/movie.Context';
 
 
 
 
 const MoviePage = () => {
+    const { id } = useParams();
+    const { movie } = useContext(MovieContext);
+    const [cast, setCast] = useState([]);
+    const [similarMovie, setSimilarMovie] = useState([]);
+    const [recommendedMovie, setRecommenedMovie] = useState([]);
+    console.log(cast);
+
+    useEffect(() => {
+        const requestCast = async () => {
+          const getCast = await axios.get(`/movie/${id}/credits`);
+          setCast(getCast.data.cast);
+        };
+        requestCast(); 
+      }, [id]);
+
+      useEffect (() => {
+        const requestSimilarMovie = async () => {
+            const getSimilarMovie = await axios.get(`/movie/${id}/similar`);
+            setSimilarMovie(getSimilarMovie.data.results);
+
+        };
+        requestSimilarMovie();
+    },[id]);
+    useEffect (() => {
+        const requestRecommendedMovie = async () => {
+            const getRecommenedMovie = await axios.get(`/movie/${id}/recommendations`);
+            setRecommenedMovie(getRecommenedMovie.data.results);
+
+        };
+        requestRecommendedMovie();
+    },[id]);
+    
+
     const Settings = {
         infinite: true,
         autoplay: false,
@@ -49,15 +88,50 @@ const MoviePage = () => {
       
     
     }; 
+
+    const SettingsCrew = {
+        infinite: true,
+        autoplay: false,
+        slidesToShow: 6,
+        slidesToScroll: 4,
+        initialSlide:0,
+        responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 3,
+                infinite:true,
+            },
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll:2,
+               initialSlide:2, 
+            },
+    
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                
+            },
+    
+        },
+     ],
+      
+    
+    }; 
     return (
         <>  
             <MovieHero/>
             <div className="my-8 container px-4 lg:m-16 lg:w-2/3">
                 <div className="flex flex-col items-start gap-3">
                     <h2 className="text-gray-800 font-bold text-2xl">About the movie</h2>
-                    <p>Bruce Wayne and Diana Prince try to bring the metahumans of
-                        Earth together after the death of Clark Kent. Meanwhile, Darkseid
-                    sends Steppenwolf to Earth with an army to subjugate humans.
+                    <p>{movie.overview}
                     </p>
 
                 </div>
@@ -91,60 +165,33 @@ const MoviePage = () => {
                 </div> 
                 <div className="my-8">
                     <h2 className="text-gray-800 font-bold text-2xl">Cast & Crew</h2>
-                    <div className="flex flex-wrap gap-6">
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/ben-affleck-292-12-09-2017-05-12-16.jpg"
-                            castName="Gal Gadot"
-                            role="Super Man"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/matt-damon-1415-24-03-2017-12-31-21.jpg"
-                            castName="Matt Damon"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                        <CastCrew 
-                            image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-                            castName="Gal Gadot"
-                            role="Wonder Woman"
-                        />
-                    </div>
+                    <Slider {...SettingsCrew}>
+                        {cast.map((castData) => (
+                             
+                            <CastCrew
+                                image={`https://image.tmdb.org/t/p/original${castData.profile_path}`}
+                                castName={castData.original_name}
+                                role={castData.character}
+                            /> 
+                            ))}
+
+                    </Slider> 
+                       
                 </div>
                 <div className="my-6">
                     <hr/>
                 </div>
                 <div className="my-8">
-                    <PosterSlider Config={Settings} images={TempPosters} title="You might also like" subTitle="" isDark={false}/>  
+                    <PosterSlider Config={Settings} images={similarMovie} title="You might also like" subTitle="" isDark={false}/>  
                 </div>
                 <div className="my-6">
                     <hr/>
                 </div>
                 <div className="my-8">
-                    <PosterSlider Config={Settings} images={TempPosters} title="BMS XCLUSIV" subTitle="" isDark={false}/>  
+                    <PosterSlider Config={Settings} images={recommendedMovie} title="BMS XCLUSIV" subTitle="" isDark={false}/>  
+                </div>
+                <div className="my-6">
+                    <hr/>
                 </div>
             </div>
             

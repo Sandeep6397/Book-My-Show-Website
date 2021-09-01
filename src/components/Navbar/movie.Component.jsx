@@ -1,15 +1,21 @@
+import React,{useContext} from 'react';
 import {GoChevronRight} from 'react-icons/go';
 import {BsSearch} from 'react-icons/bs';
 import {FiChevronDown} from 'react-icons/fi';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {FiShare2} from 'react-icons/fi';
 
+
+//context
+import { MovieContext } from '../../Context/movie.Context';
+
 const NavSm = () => {           //// for small devices
+    const {movie} = useContext(MovieContext);
     return (
         <>
             <div className = "text-white flex items-center justify-between w-full">
                 <div>
-                    <h3 className="text-xl font-bold py-1">It All Starts Here!</h3>
+                    <h3 className="text-xl font-bold md:text-3xl py-1">{movie.original_title}</h3>
                 </div>
                 <div className="mx-2 w-6 h-6">
                     <FiShare2 className="w-full h-full"/>
