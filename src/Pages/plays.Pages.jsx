@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 //poster component
 import Poster from "../components/Poster/poster.component"
 
@@ -7,7 +7,18 @@ import Poster from "../components/Poster/poster.component"
 import PlaysFilter from '../components/PlaysFilter/playsfilter.components'
 
 
+
 const PlayPage = () => {
+    const [popularMovies, setPopularMovies] = useState([]);
+    useEffect (() => {
+        const requestPopularMovies = async () => {
+            const getPopularMovies = await axios.get("/movie/popular");
+            setPopularMovies(getPopularMovies.data.results);
+
+        };
+        requestPopularMovies();
+    },[]);
+   
     return (
         <>
             <div className="container mx-auto px-4">
@@ -16,38 +27,9 @@ const PlayPage = () => {
                         <h2 className="text-2xl font-bold mb-4">Plays in Udupi</h2>
                         <div className="flex flex-wrap  ">
                         <div className="w-1/2  md:w-1/3 lg:3/12 my-3">
-                            <Poster src="https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcA%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304322-fycaqskcwb-portrait.jpg"
-                                title="Kovigondu Kannadaka"
-                                subtitle="English -> ₹499"
-                            />
-                        </div>
-                        
-                        <div className="w-1/2  md:w-1/3 lg:3/12 my-3">
-                            <Poster src="https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcA%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304322-fycaqskcwb-portrait.jpg"
-                                title="Kovigondu Kannadaka"
-                                subtitle="English -> ₹499"
-                            />
-                        </div>
-                        
-                        <div className="w-1/2  md:w-1/3 lg:3/12 my-3">
-                            <Poster src="https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcA%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304322-fycaqskcwb-portrait.jpg"
-                                title="Kovigondu Kannadaka"
-                                subtitle="English -> ₹499"
-                            />
-                        </div>
-                        
-                        <div className="w-1/2  md:w-1/3 lg:3/12 my-3">
-                            <Poster src="https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcA%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304322-fycaqskcwb-portrait.jpg"
-                                title="Kovigondu Kannadaka"
-                                subtitle="English -> ₹499"
-                            />
-                        </div>
-                        
-                        <div className="w-1/2  md:w-1/3 lg:3/12 my-3">
-                            <Poster src="https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcA%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304322-fycaqskcwb-portrait.jpg"
-                                title="Kovigondu Kannadaka"
-                                subtitle="English -> ₹499"
-                            />
+                         
+                            <Poster image={popularMovies} />
+                            
                         </div>
                         
                     </div> 

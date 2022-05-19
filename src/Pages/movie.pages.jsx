@@ -15,9 +15,6 @@ import {SiApplepay} from 'react-icons/si';
  //context
 import { MovieContext } from '../Context/movie.Context';
 
-
-
-
 const MoviePage = () => {
     const { id } = useParams();
     const { movie } = useContext(MovieContext);

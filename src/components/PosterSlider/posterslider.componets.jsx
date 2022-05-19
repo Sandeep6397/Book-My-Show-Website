@@ -15,7 +15,7 @@ const PosterSlider = (props) =>{
             <Slider { ...SliderConfig}>
             {
                 props.images.map((images) =>(
-                    <Poster{...images} isDark={props.isDark}/>
+                    <Poster {...images} isDark={props.isDark}/>
                 ))
             }
 
